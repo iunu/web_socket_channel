@@ -76,7 +76,7 @@ class IOWebSocketChannel extends StreamChannelMixin
         webSocket.pingInterval = pingInterval;
         channel._webSocket = webSocket;
         sinkCompleter.setDestinationSink(_IOWebSocketSink(webSocket));
-        return webSocket;
+        return webSocket.asBroadcastStream();
       }).catchError(
         (Object error) => throw WebSocketChannelException.from(error),
       ),
@@ -89,7 +89,7 @@ class IOWebSocketChannel extends StreamChannelMixin
   /// Creates a channel wrapping [socket].
   IOWebSocketChannel(WebSocket socket)
       : _webSocket = socket,
-        stream = socket.handleError(
+        stream = socket.asBroadcastStream().handleError(
             (error) => throw WebSocketChannelException.from(error)),
         sink = _IOWebSocketSink(socket);
 
@@ -99,7 +99,7 @@ class IOWebSocketChannel extends StreamChannelMixin
   /// has a socket added.
   IOWebSocketChannel._withoutSocket(Stream stream, this.sink)
       : _webSocket = null,
-        stream = stream.handleError(
+        stream = stream.asBroadcastStream().handleError(
             (error) => throw WebSocketChannelException.from(error));
 }
 
