@@ -115,7 +115,7 @@ class WebSocketChannel extends StreamChannelMixin {
 ///
 /// This is like a normal [StreamSink], except that it supports extra arguments
 /// to [close].
-class WebSocketSink extends DelegatingStreamSink {
+class WebSocketSink extends DelegatingStreamSink<String> {
   final WebSocketImpl _webSocket;
 
   WebSocketSink._(WebSocketImpl webSocket)

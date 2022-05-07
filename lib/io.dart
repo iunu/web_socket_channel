@@ -99,7 +99,8 @@ class IOWebSocketChannel extends StreamChannelMixin
 }
 
 /// A [WebSocketSink] that forwards [close] calls to a `dart:io` [WebSocket].
-class _IOWebSocketSink extends DelegatingStreamSink implements WebSocketSink {
+class _IOWebSocketSink extends DelegatingStreamSink<String>
+    implements WebSocketSink {
   /// The underlying socket.
   final WebSocket _webSocket;
 
